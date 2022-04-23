@@ -1,0 +1,25 @@
+{
+  "name": "@pansy/request",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pansyjs/request.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pansyjs/request/issues"
+  },
+  "homepage": "https://github.com/pansyjs/request#readme",
+  "dependencies": {
+    "axios": "^0.26.1"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4"
+  }
+}
