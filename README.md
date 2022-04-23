@@ -2,6 +2,10 @@
   Pansy Request
 </h1>
 
+<div align="center">
+统一的网络请求和错误处理方案。
+</div>
+
 接口返回数据格式
 
 ```ts
