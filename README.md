@@ -10,13 +10,28 @@
 接口返回数据格式
 
 ```ts
-export interface ResponseData<D = any> {
+enum ErrorShowType {
+  /** 不做处理 */
+  SILENT = 0,
+  /** 全局提示 - 警告 */
+  WARN_MESSAGE = 1,
+  /** 全局提示 - 异常 */
+  ERROR_MESSAGE = 2,
+  /** 通知提醒 */
+  NOTIFICATION = 3,
+  /** 重定向 */
+  REDIRECT = 9,
+}
+
+interface ResponseData<D = any> {
   /** 接口状态码 */
   code: number;
   /** 接口返回数据 */
   data: D,
   /** 接口报错信息 */
   message: string;
+  /** 接口报错处理类型 */
+  showType: ErrorShowType;
   [key: string]: any;
 }
 ```

@@ -45,14 +45,18 @@ proxy({
 const errorHandler: ErrorHandler = (error, opts) => {
   if (opts?.skipErrorHandler) throw error;
 
-  console.log(error)
-
   if (error.name === 'BizError') {
     const errorInfo = error.info;
 
+    const showType =  error.request?.options?.params?.showType || errorInfo?.showType;
+
     if (errorInfo) {
-      const { errorMessage, errorCode } = errorInfo;
-      switch (errorInfo.showType) {
+      const {
+        message: errorMessage,
+        code
+      } = errorInfo;
+
+      switch (showType) {
         case ErrorShowType.SILENT:
           // do nothong
           break;
@@ -65,7 +69,7 @@ const errorHandler: ErrorHandler = (error, opts) => {
         case ErrorShowType.NOTIFICATION:
           notification.open({
             description: errorMessage,
-            message: errorCode,
+            message: code,
           });
           break;
         case ErrorShowType.REDIRECT:

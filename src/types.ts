@@ -10,6 +10,8 @@ export interface ResponseData<D = any> {
   data: D,
   /** 接口报错信息 */
   message: string;
+  /** 接口报错处理类型 */
+  showType: ErrorShowType;
   [key: string]: any;
 }
 
