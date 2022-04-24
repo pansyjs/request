@@ -1,10 +1,13 @@
 {
   "name": "@pansy/request",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "统一的网络请求和错误处理方案。",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "start": "dumi dev",
+    "build": "tsup",
     "build:site": "dumi build"
   },
   "repository": {
@@ -21,12 +24,17 @@
     "axios": "^0.26.1"
   },
   "devDependencies": {
+    "@pansy/react-hooks": "^0.9.7",
     "@types/react": "^17",
     "@types/react-dom": "^17",
+    "@umijs/plugin-antd": "^0.15.0",
+    "ajax-hook": "^2.0.3",
+    "antd": "^4.19.5",
     "dumi": "^1.1.40",
     "husky": "^7.0.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "tsup": "^5.12.6",
     "typescript": "^4.6.3"
   }
 }
