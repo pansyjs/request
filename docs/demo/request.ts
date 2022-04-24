@@ -4,31 +4,41 @@ import { message, notification } from 'antd';
 
 import type { ErrorHandler, RequestError } from '@pansy/request';
 
-function interceptor(response) {
-  if (response.config.url === '/api/username') {
-    response.response = {
-      code: 0,
-      data: 'Tom',
-      message: 'OK'
-    }
-  }
-
-  if (response.config.url === '/api/usernameError') {
-    response.response = {
-      code: 400100,
-      message: '用户不存在'
-    }
-  }
-}
-
 proxy({
-  onError: (err, handler) => {
-    interceptor(err);
-    handler.next(err)
-  },
-  onResponse: (response, handler) => {
-    interceptor(response);
+  onRequest: (config, handler) => {
+    let response;
+
+    if (config.url.startsWith('/api/')) {
+      response = {
+        config,
+        status: 200,
+      }
+    }
+
+    if (config.url === '/api/username') {
+      response.response = {
+        code: 0,
+        data: 'Tom',
+        message: 'OK'
+      }
+    }
+
+    if (config.url === '/api/usernameError') {
+      response.response = {
+        code: 400100,
+        message: '用户不存在'
+      }
+    }
+
+    if (response) {
+      handler.resolve(response);
+      return;
+    }
+
     handler.next(response)
+  },
+  onResponse: (response) => {
+
   }
 })
 
