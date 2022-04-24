@@ -14,15 +14,21 @@ nav:
 ## 接口数据格式
 
 ```ts
-export interface RequestData<D = any> {
-  /** 状态码 */
+export interface ResponseData<D = any> {
+  /** 接口状态码 */
   code: number;
-  /** 数据 */
+  /** 接口返回数据 */
   data: D,
-  /** 报错信息 */
+  /** 接口报错信息 */
   message: string;
-  /** 错误处理方式 */
-  showType?: ErrorShowType;
   [key: string]: any;
 }
 ```
+
+### 基本示例
+
+<code src="./demo/demo01.tsx" />
+
+### 接口报错
+
+<code src="./demo/demo02.tsx" />

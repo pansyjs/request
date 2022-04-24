@@ -2,10 +2,10 @@
 title: Pansy Request
 hero:
   title: Pansy Request
-  desc: 统一的网络请求和错误处理方案
+  desc: 基于 [axios](https://axios-http.com/zh) 的统一网络请求和错误处理方案。
   actions:
     - text: 快速上手
-      link: /hooks/use-modal
+      link: /guide
 footer: Open-source MIT Licensed | Copyright © 2020-present
 ---
 

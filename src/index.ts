@@ -3,7 +3,9 @@ export { request, setConfig } from './request';
 export { ErrorShowType } from './config';
 
 export type {
-  RequestConfig
+  RequestConfig,
+  RequestError,
+  ErrorHandler,
 } from './types';
 
 export type {
