@@ -7,6 +7,7 @@ import type { ErrorHandler, RequestError } from '@pansy/request';
 proxy({
   //请求成功后进入
   onResponse: (response, handler) => {
+    console.log(response);
     if (response.config.url === '/api/username') {
       response.response = {
         code: 0,
