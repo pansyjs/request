@@ -1,40 +1,39 @@
 import { request, setConfig, ErrorShowType, } from '@pansy/request';
-import { proxy, } from 'ajax-hook';
+import { proxy } from 'ajax-hook';
 import { message, notification } from 'antd';
 
 import type { ErrorHandler, RequestError } from '@pansy/request';
 
+function interceptor(response) {
+  if (response.config.url === '/api/username') {
+    response.response = {
+      code: 0,
+      data: 'Tom',
+      message: 'OK'
+    }
+  }
+
+  if (response.config.url === '/api/usernameError') {
+    response.response = {
+      code: 400100,
+      message: '用户不存在'
+    }
+  }
+}
+
 proxy({
   onError: (err, handler) => {
-    console.log(err)
+    interceptor(err);
     handler.next(err)
   },
-  //请求成功后进入
   onResponse: (response, handler) => {
-    console.log(response);
-    if (response.config.url === '/api/username') {
-      response.response = {
-        code: 0,
-        data: 'Tom',
-        message: 'OK'
-      }
-    }
-
-    if (response.config.url === '/api/usernameError') {
-      response.response = {
-        code: 400100,
-        message: '用户不存在'
-      }
-    }
-
+    interceptor(response);
     handler.next(response)
   }
 })
 
 const errorHandler: ErrorHandler = (error, opts) => {
   if (opts?.skipErrorHandler) throw error;
-
-  console.log(error);
 
   if (error.name === 'BizError') {
     const errorInfo = error.info;
