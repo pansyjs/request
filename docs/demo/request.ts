@@ -12,6 +12,9 @@ proxy({
       response = {
         config,
         status: 200,
+        headers: {
+          'content-type': 'application/json'
+        }
       }
     }
 
@@ -36,14 +39,13 @@ proxy({
     }
 
     handler.next(response)
-  },
-  onResponse: (response) => {
-
   }
 })
 
 const errorHandler: ErrorHandler = (error, opts) => {
   if (opts?.skipErrorHandler) throw error;
+
+  console.log(error)
 
   if (error.name === 'BizError') {
     const errorInfo = error.info;

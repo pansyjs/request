@@ -93,6 +93,7 @@ export const request: Request = (
         resolve(getResponse ? res : res.data);
       })
       .catch((error) => {
+        console.error(error);
         requestInterceptorsToEject?.forEach((interceptor) => {
           requestInstance.interceptors.request.eject(interceptor);
         });
