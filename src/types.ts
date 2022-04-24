@@ -34,18 +34,20 @@ export interface ErrorHandler {
   (error: RequestError, opts: RequestOptions, config: RequestConfig): void;
 }
 
+export interface ErrorConfig {
+  /**
+   * 统一错误处理
+   */
+  errorHandler?: ErrorHandler;
+  /**
+   * 接收后端返回的数据并且抛出一个自己的 error，可以在这里根据后端的数据进行一定的处理。
+   */
+  errorThrower?: <T = any>(res: T) => void
+}
+
 export interface RequestConfig<D = any> extends AxiosRequestConfig<D> {
   /** 异常处理相关配置 */
-  errorConfig?: {
-    /**
-     * 该方法接收两个参数，第一个参数是 catch 到的 error，第二个参数则是 request 的 opts。
-     */
-    errorHandler?: ErrorHandler;
-    /**
-     * 接收后端返回的数据并且抛出一个自己的 error，可以在这里根据后端的数据进行一定的处理。
-     */
-    errorThrower?: <T = any>(res: T) => void
-  };
+  errorConfig?: ErrorConfig;
   /** 请求拦截器 */
   requestInterceptors?: RequestInterceptorTuple[];
   /** 响应拦截器 */
