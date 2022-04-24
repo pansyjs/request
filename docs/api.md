@@ -43,6 +43,8 @@ interface RequestConfig<D = any> extends AxiosRequestConfig<D> {
 
 请求方法
 
+request 接收的 options 除了透传 axios 的所有 config 之外，我们还额外添加了几个属性 `skipErrorHandler`，`getResponse`，当你的某个请求想要跳过错误处理时，可以通过设置`skipErrorHandler = true` 来实现。
+
 ```ts
 export interface Request {
   <T = any>(url: string, opts: RequestOptionsWithResponse): Promise<AxiosResponse<T>>;

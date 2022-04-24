@@ -7,8 +7,7 @@ export default () => {
   const usernameRequest = useRequest(fetchUsername, {
     manual: true,
     onSuccess: (data) => {
-      console.log(data);
-      // message.info(data);
+      message.info(data.data);
     }
   })
 
@@ -17,8 +16,10 @@ export default () => {
   }
 
   return (
-    <Button onClick={handleClick}>
-      获取用户名
-    </Button>
+    <>
+      <Button onClick={handleClick}>
+        获取用户名
+      </Button>
+    </>
   )
 }
