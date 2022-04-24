@@ -3,10 +3,9 @@
 </h1>
 
 <div align="center">
-基于 [axios](https://axios-http.com/zh) 的统一网络请求和错误处理方案。
+基于 <a href="https://axios-http.com/zh">axios</a> 的统一网络请求和错误处理方案。
 </div>
 
-·
 
 接口返回数据格式
 
