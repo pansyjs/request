@@ -5,6 +5,10 @@ import { message, notification } from 'antd';
 import type { ErrorHandler, RequestError } from '@pansy/request';
 
 proxy({
+  onError: (err, handler) => {
+    console.log(err)
+    handler.next(err)
+  },
   //请求成功后进入
   onResponse: (response, handler) => {
     console.log(response);
