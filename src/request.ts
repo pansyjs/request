@@ -55,7 +55,7 @@ const getRequestInstance = (): AxiosInstance => {
 
 /**
  * 请求方法
- * @param url API地址
+ * @param url 接口地址
  * @param opts axios 的配置对象
  * @returns
  */
@@ -66,41 +66,15 @@ export const request: Request = (
   const requestInstance = getRequestInstance();
 
   // @ts-ignore
-  const { getResponse = false, requestInterceptors, responseInterceptors } = opts;
-
-  const requestInterceptorsToEject = requestInterceptors?.map((interceptor) => {
-    return interceptor instanceof Array ?
-      requestInstance.interceptors.request.use(interceptor[0], interceptor[1]):
-      requestInstance.interceptors.request.use(interceptor);
-    });
-
-  const responseInterceptorsToEject = responseInterceptors?.map((interceptor) => {
-    return interceptor instanceof Array ?
-      requestInstance.interceptors.response.use(interceptor[0], interceptor[1]):
-      requestInstance.interceptors.response.use(interceptor);
-    });
+  const { getResponse = false } = opts;
 
   return new Promise<any>((resolve, reject) => {
     requestInstance
       .request({ ...opts, url })
       .then((res) => {
-        requestInterceptorsToEject?.forEach((interceptor) => {
-          requestInstance.interceptors.request.eject(interceptor);
-        });
-        responseInterceptorsToEject?.forEach((interceptor) => {
-          requestInstance.interceptors.response.eject(interceptor);
-        });
         resolve(getResponse ? res : res.data);
       })
       .catch((error) => {
-        console.error('****');
-        requestInterceptorsToEject?.forEach((interceptor) => {
-          requestInstance.interceptors.request.eject(interceptor);
-        });
-        responseInterceptorsToEject?.forEach((interceptor) => {
-          requestInstance.interceptors.response.eject(interceptor);
-        });
-
         try {
           const handler = config.errorConfig?.errorHandler;
 

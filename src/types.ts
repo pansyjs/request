@@ -60,10 +60,6 @@ export interface RequestOptions<D = any> extends AxiosRequestConfig<D> {
    * @default false
    */
   skipErrorHandler?: boolean;
-  /** 请求拦截器 */
-  requestInterceptors?: RequestInterceptorTuple[];
-  /** 响应拦截器 */
-  responseInterceptors?: ResponseInterceptorTuple[];
 }
 
 export interface RequestOptionsWithResponse<D = any> extends RequestOptions<D> {
@@ -74,12 +70,11 @@ export interface RequestOptionsWithoutResponse<D = any> extends RequestOptions<D
   getResponse: false;
 }
 
-
 export interface Request {
-  <T = any>(url: string, opts: RequestOptionsWithResponse): Promise<AxiosResponse<T>>;
-  <T = any>(url: string, opts: RequestOptionsWithoutResponse): Promise<T>;
+  <T = any>(url: string, opts: RequestOptionsWithResponse): Promise<AxiosResponse<ResponseData<T>>>;
+  <T = any>(url: string, opts: RequestOptionsWithoutResponse): Promise<ResponseData<T>>;
   // getResponse 默认是 false， 因此不提供该参数时，只返回 data
-  <T = any>(url: string, opts: RequestOptions): Promise<T>;
+  <T = any>(url: string, opts: RequestOptions): Promise<ResponseData<T>>;
   // 不提供 opts 时，默认使用 'GET' method，并且默认返回 data
-  <T = any>(url: string): Promise<T>;
+  <T = any>(url: string): Promise<ResponseData<T>>;
 }
