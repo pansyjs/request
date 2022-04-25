@@ -61,16 +61,16 @@ const getRequestInstance = (): AxiosInstance => {
  */
 export const request: Request = (
   url: string,
-  opts: RequestOptions = { method: 'GET' },
+  opts = { method: 'GET' },
 ) => {
   const requestInstance = getRequestInstance();
 
   // @ts-ignore
-  const { getResponse = false } = opts;
+  const { getResponse, ...rest } = opts as RequestOptions & { getResponse: boolean };
 
   return new Promise<any>((resolve, reject) => {
     requestInstance
-      .request({ ...opts, url })
+      .request({ ...rest, url })
       .then((res) => {
         resolve(getResponse ? res : res.data);
       })
@@ -79,7 +79,7 @@ export const request: Request = (
           const handler = config.errorConfig?.errorHandler;
 
           if (handler) {
-            handler(error, opts, config);
+            handler(error, rest, config);
           }
         } catch (e) {
           reject(e);

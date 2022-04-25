@@ -1,6 +1,6 @@
-import { request, setConfig, ErrorShowType, } from '@pansy/request';
 import { proxy } from 'ajax-hook';
 import { message, notification } from 'antd';
+import { request, setConfig, ErrorShowType, } from '@pansy/request';
 
 import type { ErrorHandler, RequestError } from '@pansy/request';
 
