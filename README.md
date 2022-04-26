@@ -31,7 +31,7 @@ interface ResponseData<D = any> {
   /** 接口报错信息 */
   message: string;
   /** 接口报错处理类型 */
-  showType: ErrorShowType;
+  showType?: ErrorShowType;
   [key: string]: any;
 }
 ```
