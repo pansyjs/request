@@ -1,4 +1,4 @@
-export { request, setConfig } from './request';
+export { request, setConfig, updateConfig, } from './request';
 
 export { ErrorShowType } from './config';
 

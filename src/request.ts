@@ -12,10 +12,22 @@ let config: RequestConfig = {};
 
 /**
  * 设置配置数据
- * @param data
+ * @param opts
  */
-export const setConfig = (data: RequestConfig = {}) => {
-  config = data;
+export const setConfig = (opts: RequestConfig = {}) => {
+  config = opts;
+}
+
+export const updateConfig = (opts: RequestConfig = {}) => {
+  config = {
+    ...config,
+    ...opts,
+  };
+
+  // @ts-ignore
+  requestInstance = null;
+
+  getRequestInstance();
 }
 
 /**
