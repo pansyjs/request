@@ -10,6 +10,10 @@ const config: Config = {
   navs: [
     null,
     {
+      title: 'Axios',
+      path: 'https://axios-http.com/zh'
+    },
+    {
       title: 'GitHub',
       path: 'https://github.com/pansyjs/request',
     },
