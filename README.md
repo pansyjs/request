@@ -6,6 +6,9 @@
 基于 <a href="https://axios-http.com/zh">axios</a> 的统一网络请求和错误处理方案。
 </div>
 
+[![docs by dumi](https://img.shields.io/badge/docs%20by-dumi-blue)](https://d.umijs.org/)
+[![layout](https://img.shields.io/npm/dw/@pansy/request.svg)](https://www.npmjs.com/package/@pansy/request)
+[![layout](https://img.shields.io/npm/v/@pansy/request.svg)](https://www.npmjs.com/package/@pansy/request)
 
 接口返回数据格式
 
