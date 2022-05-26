@@ -1,13 +1,13 @@
 import { Button, message } from 'antd';
 import { useRequest } from '@pansy/react-hooks';
-import { fetchUsername1 } from './service';
+import { fetchUsername2 } from './service';
 
 export default () => {
 
-  const usernameRequest = useRequest(fetchUsername1, {
+  const usernameRequest = useRequest(fetchUsername2, {
     manual: true,
     onSuccess: (data) => {
-      message.info(JSON.stringify(data));
+      console.log(data);
     }
   })
 

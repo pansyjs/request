@@ -73,6 +73,14 @@ request(`/api/*`, {
 
 <code src="./demo/demo01.tsx" />
 
-### 接口报错
+### 获取后端完成的数据
 
 <code src="./demo/demo02.tsx" />
+
+### 获取 Response 数据
+
+<code src="./demo/demo03.tsx" />
+
+### 接口报错
+
+<code src="./demo/demo04.tsx" />
