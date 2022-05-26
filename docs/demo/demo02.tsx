@@ -7,7 +7,7 @@ export default () => {
     request<string>('/api/usernameError', {
       method: 'GET',
     }).then((response) => {
-      console.log(response);
+      message.info(JSON.stringify(response));
     });
   }
 

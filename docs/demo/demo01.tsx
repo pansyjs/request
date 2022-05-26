@@ -7,7 +7,7 @@ export default () => {
   const usernameRequest = useRequest(fetchUsername, {
     manual: true,
     onSuccess: (data) => {
-      message.info(data.data);
+      message.info(data);
     }
   })
 
