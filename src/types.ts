@@ -62,6 +62,8 @@ export interface RequestOptions<D = any> extends AxiosRequestConfig<D> {
   skipErrorHandler?: boolean;
 }
 
+export type GetResponse = boolean | 'data';
+
 export interface RequestOptionsWithResponse<D = any> extends RequestOptions<D> {
   getResponse: true;
 }
@@ -70,11 +72,16 @@ export interface RequestOptionsWithoutResponse<D = any> extends RequestOptions<D
   getResponse: false;
 }
 
+export interface RequestOptionsWithoutDataResponse<D = any> extends RequestOptions<D> {
+  getResponse: 'data';
+}
+
 export interface Request {
   <T = any>(url: string, opts: RequestOptionsWithResponse): Promise<AxiosResponse<ResponseData<T>>>;
   <T = any>(url: string, opts: RequestOptionsWithoutResponse): Promise<ResponseData<T>>;
-  // getResponse 默认是 false， 因此不提供该参数时，只返回 data
-  <T = any>(url: string, opts: RequestOptions): Promise<ResponseData<T>>;
+  <T = any>(url: string, opts: RequestOptionsWithoutDataResponse): Promise<T>;
+  // getResponse 默认是 'data'， 因此不提供该参数时，只返回 response.data.data
+  <T = any>(url: string, opts: RequestOptions): Promise<T>;
   // 不提供 opts 时，默认使用 'GET' method，并且默认返回 data
   <T = any>(url: string): Promise<ResponseData<T>>;
 }

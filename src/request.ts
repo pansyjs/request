@@ -3,7 +3,6 @@ import axios from 'axios';
 import type { AxiosInstance } from 'axios';
 import type {
   Request,
-  RequestOptions,
   RequestConfig,
 } from './types';
 
@@ -73,18 +72,30 @@ const getRequestInstance = (): AxiosInstance => {
  */
 export const request: Request = (
   url: string,
-  opts = { method: 'GET' },
+  opts: any = { method: 'GET' },
 ) => {
   const requestInstance = getRequestInstance();
 
-  // @ts-ignore
-  const { getResponse, ...rest } = opts as RequestOptions & { getResponse: boolean };
+  const { getResponse = 'data', ...rest } = opts;
 
   return new Promise<any>((resolve, reject) => {
     requestInstance
       .request({ ...rest, url })
       .then((res) => {
-        resolve(getResponse ? res : res.data);
+        let data;
+
+        switch (getResponse) {
+          case 'data':
+            data = res.data?.data;
+            break;
+          case false:
+            data = res.data;
+            break;
+          default:
+            data = res;
+            break;
+        }
+        resolve(data);
       })
       .catch((error) => {
         try {
