@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "rootDirs": ["src", "config"],
+    "rootDirs": ["src"],
     "target": "ES6",
     "moduleResolution": "node",
+    "module": "commonjs",
     "jsx": "react",
     "allowJs": true,
     "declaration": false,
     "esModuleInterop": true,
-    "importHelpers": true,
     "downlevelIteration": true,
     "sourceMap": true,
     "baseUrl": "./",
