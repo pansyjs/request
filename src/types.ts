@@ -83,5 +83,5 @@ export interface Request {
   // getResponse 默认是 'data'， 因此不提供该参数时，只返回 response.data.data
   <T = any>(url: string, opts: RequestOptions): Promise<T>;
   // 不提供 opts 时，默认使用 'GET' method，并且默认返回 data
-  <T = any>(url: string): Promise<ResponseData<T>>;
+  <T = any>(url: string): Promise<T>;
 }
