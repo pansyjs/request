@@ -3,12 +3,48 @@
 </h1>
 
 <div align="center">
-基于 <a href="https://axios-http.com/zh">axios</a> 的统一网络请求和错误处理方案。
+基于 <a href="https://axios-http.com/zh">Axios</a> 的统一网络请求和错误处理方案。
 </div>
 
 [![docs by dumi](https://img.shields.io/badge/docs%20by-dumi-blue)](https://d.umijs.org/)
 [![layout](https://img.shields.io/npm/dw/@pansy/request.svg)](https://www.npmjs.com/package/@pansy/request)
 [![layout](https://img.shields.io/npm/v/@pansy/request.svg)](https://www.npmjs.com/package/@pansy/request)
+
+## 特性
+
+- 在 Axios 上进行了自己的封装，更加易用
+- 使用 TypeScript 开发，提供完整的类型定义文件
+
+## 安装
+
+```sh
+# npm install
+npm install @pansy/request --save
+
+# yarn install
+yarn add @pansy/request
+
+# pnpm install
+pnpm i @pansy/request
+```
+
+## 使用
+
+```ts
+import { request, setConfig } from '@pansy/request';
+
+// 需要初始化
+setConfig({
+  baseURL: 'https://api.pansy.com'
+})
+
+export async function fetchUser(params) {
+  return request<{ name: string }>('/api/user', {
+    method: 'GET',
+    params,
+  })
+}
+```
 
 接口返回数据格式
 
