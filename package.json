@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/pansyjs/request#readme",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "1.1.3"
   },
   "devDependencies": {
     "@pansy/react-hooks": "^0.12.2",
