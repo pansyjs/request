@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "rootDirs": ["src"],
     "target": "ES6",
     "moduleResolution": "node",
     "module": "commonjs",
@@ -16,8 +15,13 @@
     "skipLibCheck": true,
     "strict": true,
     "noImplicitAny": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@pansy/request": [
+        "src"
+      ]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "docs"],
   "exclude": ["node_modules", "lib", "es", "dist", ".dumi"]
 }

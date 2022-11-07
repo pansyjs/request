@@ -1,10 +1,12 @@
-import { Button, message } from 'antd';
+/**
+ * desc: 请在控制台查看
+ */
+import { Button } from 'antd';
 import { useRequest } from '@pansy/react-hooks';
-import { fetchUsername2 } from './service';
+import { fetchUser2 } from './service';
 
 export default () => {
-
-  const usernameRequest = useRequest(fetchUsername2, {
+  const userRequest = useRequest(fetchUser2, {
     manual: true,
     onSuccess: (data) => {
       console.log(data);
@@ -12,14 +14,12 @@ export default () => {
   })
 
   const handleClick = () => {
-    usernameRequest.run();
+    userRequest.run();
   }
 
   return (
-    <>
-      <Button onClick={handleClick}>
-        获取用户名
-      </Button>
-    </>
+    <Button onClick={handleClick}>
+      获取用户名
+    </Button>
   )
 }

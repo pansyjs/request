@@ -1,21 +1,25 @@
 import request from './request';
 
-export async function fetchUsername() {
-  return request<string>('/api/username', {
+export async function fetchUser() {
+  return request<string>('/api/user', {
     method: 'GET',
   })
 }
 
-export async function fetchUsername1() {
-  return request<string>('/api/username', {
+export async function fetchUser1() {
+  return request<string>('/api/user', {
     method: 'GET',
     getResponse: false,
   })
 }
 
-export async function fetchUsername2() {
-  return request<string>('/api/username', {
+export async function fetchUser2() {
+  return request<string>('/api/user', {
     method: 'GET',
     getResponse: true,
   })
+}
+
+export async function fetchUserError() {
+  return request<string>('/api/userError')
 }

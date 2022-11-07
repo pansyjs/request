@@ -1,10 +1,9 @@
 import { Button, message } from 'antd';
 import { useRequest } from '@pansy/react-hooks';
-import { fetchUsername1 } from './service';
+import { fetchUser1 } from './service';
 
 export default () => {
-
-  const usernameRequest = useRequest(fetchUsername1, {
+  const userRequest = useRequest(fetchUser1, {
     manual: true,
     onSuccess: (data) => {
       message.info(JSON.stringify(data));
@@ -12,14 +11,12 @@ export default () => {
   })
 
   const handleClick = () => {
-    usernameRequest.run();
+    userRequest.run();
   }
 
   return (
-    <>
-      <Button onClick={handleClick}>
-        获取用户名
-      </Button>
-    </>
+    <Button onClick={handleClick}>
+      获取用户名
+    </Button>
   )
 }

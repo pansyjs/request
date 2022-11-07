@@ -6,39 +6,38 @@ import type { ErrorHandler, RequestError } from '@pansy/request';
 
 proxy({
   onRequest: (config, handler) => {
-    let response;
-
-    if (config.url.startsWith('/api/')) {
-      response = {
+    if (config.url === '/api/user') {
+      handler.resolve({
         config,
         status: 200,
         headers: {
           'content-type': 'application/json'
+        },
+        response: {
+          code: 0,
+          data: 'Tom',
+          message: 'OK'
         }
-      }
-    }
-
-    if (config.url === '/api/username') {
-      response.response = {
-        code: 0,
-        data: 'Tom',
-        message: 'OK'
-      }
-    }
-
-    if (config.url === '/api/usernameError') {
-      response.response = {
-        code: 400100,
-        message: '用户不存在'
-      }
-    }
-
-    if (response) {
-      handler.resolve(response);
+      })
       return;
     }
 
-    handler.next(response)
+    if (config.url === '/api/userError') {
+      handler.resolve({
+        config,
+        status: 200,
+        headers: {
+          'content-type': 'application/json'
+        },
+        response: {
+          code: 400100,
+          message: '用户不存在'
+        }
+      })
+      return;
+    }
+
+    handler.next(config)
   }
 })
 

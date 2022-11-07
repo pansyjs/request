@@ -1,14 +1,17 @@
 import { Button, message } from 'antd';
-import request from './request';
+import { useRequest } from '@pansy/react-hooks';
+import { fetchUserError } from './service';
 
 export default () => {
+  const userRequest = useRequest(fetchUserError, {
+    manual: true,
+    onSuccess: (data) => {
+      message.info(JSON.stringify(data));
+    }
+  })
 
   const handleClick = () => {
-    request<string>('/api/usernameError', {
-      method: 'GET',
-    }).then((response) => {
-      message.info(JSON.stringify(response));
-    });
+    userRequest.run();
   }
 
   return (
