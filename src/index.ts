@@ -8,10 +8,12 @@ export type {
   RequestOptions,
   RequestError,
   ErrorHandler,
+  ResponseInterceptor,
 } from './types';
 
 export type {
+  AxiosError,
   AxiosInstance,
-  AxiosRequestConfig,
   AxiosResponse,
+  AxiosRequestConfig,
 } from 'axios';

@@ -62,6 +62,8 @@ export interface RequestOptions<D = any> extends AxiosRequestConfig<D> {
   skipErrorHandler?: boolean;
 }
 
+export { ResponseInterceptor }
+
 export type GetResponse = boolean | 'data';
 
 export interface RequestOptionsWithResponse<D = any> extends RequestOptions<D> {
