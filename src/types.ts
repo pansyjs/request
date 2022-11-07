@@ -2,7 +2,7 @@ import { ErrorShowType } from './config';
 
 import type { AxiosResponse, AxiosRequestConfig } from 'axios';
 
-/** 后端返回数据格式 */
+/** 接口返回数据格式 */
 export interface ResponseData<D = any> {
   /** 接口状态码 */
   code: number;
@@ -34,35 +34,33 @@ export interface ErrorHandler {
   (error: RequestError, opts: RequestOptions, config: RequestConfig): void;
 }
 
-export interface ErrorConfig {
-  /**
-   * 统一错误处理
-   */
-  errorHandler?: ErrorHandler;
-  /**
-   * 接收后端返回的数据并且抛出一个自己的 error，可以在这里根据后端的数据进行一定的处理。
-   */
-  errorThrower?: <T = any>(res: T) => void
-}
-
 export interface RequestConfig<D = any> extends AxiosRequestConfig<D> {
   /** 异常处理相关配置 */
-  errorConfig?: ErrorConfig;
+  errorConfig?: {
+    /**
+     * 错误接收及处理
+     */
+    errorHandler?: ErrorHandler;
+    /**
+     * 接收后端返回的数据并且抛出一个自己的 error，可以在这里根据后端的数据进行一定的处理。
+     */
+    errorThrower?: (res: D) => void
+  };
   /** 请求拦截器 */
   requestInterceptors?: RequestInterceptorTuple[];
   /** 响应拦截器 */
   responseInterceptors?: ResponseInterceptorTuple[];
 }
 
+/** 请求配置参数 */
 export interface RequestOptions<D = any> extends AxiosRequestConfig<D> {
   /**
    * 是否跳过异常处理
    * @default false
    */
   skipErrorHandler?: boolean;
+  [key: string]: any;
 }
-
-export { ResponseInterceptor }
 
 export type GetResponse = boolean | 'data';
 
@@ -87,3 +85,5 @@ export interface Request {
   // 不提供 opts 时，默认使用 'GET' method，并且默认返回 data
   <T = any>(url: string): Promise<T>;
 }
+
+export { ResponseInterceptor }
