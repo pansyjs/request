@@ -1,7 +1,7 @@
 {
   "name": "@pansy/request",
   "version": "2.1.0",
-  "description": "基于 axios 的统一网络请求和错误处理方案。",
+  "description": "基于 Axios 的统一网络请求和错误处理方案",
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "es/index.d.ts",

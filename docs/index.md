@@ -1,7 +1,7 @@
 ---
 hero:
   title: Request
-  description: 基于 Axios 的统一网络请求和错误处理方案。
+  description: 基于 Axios 的统一网络请求和错误处理方案
   actions:
     - text: 快速上手
       link: /guide
