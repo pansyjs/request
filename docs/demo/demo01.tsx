@@ -1,4 +1,6 @@
 import { Button, message } from 'antd';
+import 'antd/es/button/style';
+import 'antd/es/message/style';
 import { useRequest } from '@pansy/react-hooks';
 import { fetchUser } from './service';
 

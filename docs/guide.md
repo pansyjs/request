@@ -71,16 +71,16 @@ request(`/api/*`, {
 
 ### 基本示例
 
-<code src="./demo/demo01.tsx" />
+<code src="./demo/demo01.tsx"></code>
 
 ### 获取后端完成的数据
 
-<code src="./demo/demo02.tsx" />
+<code src="./demo/demo02.tsx" ></code>
 
 ### 获取 Response 数据
 
-<code src="./demo/demo03.tsx" />
+<code src="./demo/demo03.tsx" ></code>
 
 ### 接口报错
 
-<code src="./demo/demo04.tsx" />
+<code src="./demo/demo04.tsx"></code>

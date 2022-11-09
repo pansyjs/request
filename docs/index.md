@@ -1,12 +1,10 @@
 ---
-title: Pansy Request
 hero:
-  title: Pansy Request
-  desc: 基于 [axios](https://axios-http.com/zh) 的统一网络请求和错误处理方案。
+  title: Request
+  description: 基于 Axios 的统一网络请求和错误处理方案。
   actions:
     - text: 快速上手
       link: /guide
-footer: Open-source MIT Licensed | Copyright © 2020-present
 ---
 
 ## 🏗 安装
@@ -26,5 +24,4 @@ pnpm i @pansy/request
 
 ```ts
 import { setConfig, request } from '@pansy/request';
-
 ```
