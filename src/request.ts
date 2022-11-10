@@ -51,11 +51,16 @@ const getRequestInstance = (): AxiosInstance => {
     });
 
   // 当响应的数据 success 是 false 的时候，抛出 error 以供 errorHandler 处理。
-  requestInstance.interceptors.response.use((response)=>{
-    const { data } = response;
-
-    if (config?.errorConfig?.errorThrower) {
-      config.errorConfig.errorThrower(data);
+  requestInstance.interceptors.response.use((response) => {
+    try {
+      if (
+        config?.errorConfig?.errorThrower &&
+        config.errorConfig.errorThrower(response)
+      ) {
+        return Promise.reject(response)
+      }
+    } catch (error) {
+      return Promise.reject(error)
     }
 
     return response;

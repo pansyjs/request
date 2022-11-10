@@ -2,7 +2,7 @@ import { proxy } from 'ajax-hook';
 import { message, notification } from 'antd';
 import { request, setConfig, ErrorShowType, } from '@pansy/request';
 
-import type { ErrorHandler, RequestError } from '@pansy/request';
+import type { ErrorHandler } from '@pansy/request';
 
 proxy({
   onRequest: (config, handler) => {
@@ -41,11 +41,13 @@ proxy({
   }
 })
 
+const errorThrower = (res: any) => res?.data?.code !== 0;
+
 const errorHandler: ErrorHandler = (error, opts) => {
   if (opts?.skipErrorHandler) throw error;
 
-  if (error.name === 'BizError') {
-    const errorInfo = error.info;
+  if (error?.data && errorThrower(error)) {
+    const errorInfo = error.data;
 
     const showType =  error.request?.options?.params?.showType || errorInfo?.showType;
 
@@ -95,22 +97,7 @@ const errorHandler: ErrorHandler = (error, opts) => {
 setConfig({
   errorConfig: {
     errorHandler,
-    errorThrower: (res: any) => {
-      const { data, code, message, showType } = res;
-
-      if (code !== 0) {
-        const error: RequestError = new Error(message);
-        error.name = 'BizError';
-        error.info = {
-          code,
-          message,
-          showType,
-          data
-        };
-
-        throw error;
-      }
-    },
+    errorThrower,
   }
 });
 

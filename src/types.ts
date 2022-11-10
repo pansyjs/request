@@ -42,9 +42,9 @@ export interface RequestConfig<D = any> extends AxiosRequestConfig<D> {
      */
     errorHandler?: ErrorHandler;
     /**
-     * 接收后端返回的数据并且抛出一个自己的 error，可以在这里根据后端的数据进行一定的处理。
+     * 接收后端返回的数据判断是否为异常请求
      */
-    errorThrower?: (res: D) => void
+    errorThrower?: (res: D) => boolean
   };
   /** 请求拦截器 */
   requestInterceptors?: RequestInterceptorTuple[];
