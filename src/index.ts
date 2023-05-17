@@ -1,5 +1,7 @@
+import axios from 'axios';
 export { request, setConfig, updateConfig, } from './request';
 
+export { axios };
 export { ErrorShowType } from './config';
 
 export type {
@@ -10,7 +12,6 @@ export type {
   ErrorHandler,
   ResponseInterceptor,
 } from './types';
-
 export type {
   AxiosError,
   AxiosInstance,
