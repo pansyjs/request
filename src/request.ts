@@ -52,8 +52,11 @@ const getRequestInstance = (): AxiosInstance => {
 
   // 当响应的数据 success 是 false 的时候，抛出 error 以供 errorHandler 处理。
   requestInstance.interceptors.response.use((response) => {
+    const { responseType = 'json' } = response.config;
+    
     try {
       if (
+        responseType === 'json' &&
         config?.errorConfig?.errorThrower &&
         config.errorConfig.errorThrower(response)
       ) {
