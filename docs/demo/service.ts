@@ -23,3 +23,9 @@ export async function fetchUser2() {
 export async function fetchUserError() {
   return request<string>('/api/userError')
 }
+
+export async function fetchUserSkipError() {
+  return request<string>('/api/userError', {
+    skipErrorHandler: true,
+  })
+}

@@ -1,4 +1,4 @@
-import type { AxiosResponse, AxiosRequestConfig, AxiosError } from '@pansy/axios';
+import type { AxiosResponse, AxiosRequestConfig, AxiosError, InternalAxiosRequestConfig } from '@pansy/axios';
 import type { ErrorShowType } from './config';
 
 /** 接口返回数据格式 */
@@ -20,13 +20,17 @@ type ErrorInterceptor = (error: Error) => Promise<Error>;
 type RequestInterceptorTuple = [RequestInterceptor, ErrorInterceptor] | [ RequestInterceptor ] | RequestInterceptor;
 type ResponseInterceptorTuple = [ResponseInterceptor, ErrorInterceptor] | [ResponseInterceptor] | ResponseInterceptor;
 
-export interface RequestError extends Omit<Error, 'message'> {
-  message: AxiosError;
-  name: 'AxiosError',
-  [key: string]: any;
+export interface RequestError<D> extends Omit<AxiosError<D>, 'message'> {
+  message: {
+    code?: string;
+    config?: RequestOptions<D> & InternalAxiosRequestConfig<D>;
+    message: string;
+    request: any;
+    response: AxiosResponse<D>;
+  };
 }
 
-export type ErrorHandler = (error: RequestError) => void;
+export type ErrorHandler<D> = (error: RequestError<D>) => void;
 
 export interface RequestConfig<D = any> extends Partial<AxiosRequestConfig<D>> {
   /** 异常处理相关配置 */
@@ -34,7 +38,7 @@ export interface RequestConfig<D = any> extends Partial<AxiosRequestConfig<D>> {
     /**
      * 错误接收及处理
      */
-    errorHandler?: ErrorHandler;
+    errorHandler?: ErrorHandler<D>;
   };
   /** 请求拦截器 */
   requestInterceptors?: RequestInterceptorTuple[];
