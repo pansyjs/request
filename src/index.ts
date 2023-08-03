@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '@pansy/axios';
 export { request, setConfig, updateConfig, } from './request';
 
 export { axios };
@@ -17,4 +17,4 @@ export type {
   AxiosInstance,
   AxiosResponse,
   AxiosRequestConfig,
-} from 'axios';
+} from '@pansy/axios';

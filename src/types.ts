@@ -1,6 +1,5 @@
-import { ErrorShowType } from './config';
-
-import type { AxiosResponse, AxiosRequestConfig } from 'axios';
+import type { AxiosResponse, AxiosRequestConfig, AxiosError } from '@pansy/axios';
+import type { ErrorShowType } from './config';
 
 /** 接口返回数据格式 */
 export interface ResponseData<D = any> {
@@ -15,36 +14,27 @@ export interface ResponseData<D = any> {
   [key: string]: any;
 }
 
-type RequestInterceptor = (config : AxiosRequestConfig) => AxiosRequestConfig;
+type RequestInterceptor = (config: RequestOptions) => RequestOptions;
 type ResponseInterceptor = <T = any>(response : AxiosResponse<T>) => AxiosResponse<T> ;
-
 type ErrorInterceptor = (error: Error) => Promise<Error>;
-
 type RequestInterceptorTuple = [RequestInterceptor, ErrorInterceptor] | [ RequestInterceptor ] | RequestInterceptor;
 type ResponseInterceptorTuple = [ResponseInterceptor, ErrorInterceptor] | [ResponseInterceptor] | ResponseInterceptor;
 
-export interface RequestError extends Error {
-  data?: any;
-  info?: ResponseData;
-  request?: any;
-  response?: any;
+export interface RequestError extends Omit<Error, 'message'> {
+  message: AxiosError;
+  name: 'AxiosError',
+  [key: string]: any;
 }
 
-export interface ErrorHandler {
-  (error: RequestError, opts: RequestOptions, config: RequestConfig): void;
-}
+export type ErrorHandler = (error: RequestError) => void;
 
-export interface RequestConfig<D = any> extends AxiosRequestConfig<D> {
+export interface RequestConfig<D = any> extends Partial<AxiosRequestConfig<D>> {
   /** 异常处理相关配置 */
   errorConfig?: {
     /**
      * 错误接收及处理
      */
     errorHandler?: ErrorHandler;
-    /**
-     * 接收后端返回的数据判断是否为异常请求
-     */
-    errorThrower?: (res: D) => boolean
   };
   /** 请求拦截器 */
   requestInterceptors?: RequestInterceptorTuple[];
@@ -53,7 +43,7 @@ export interface RequestConfig<D = any> extends AxiosRequestConfig<D> {
 }
 
 /** 请求配置参数 */
-export interface RequestOptions<D = any> extends AxiosRequestConfig<D> {
+export interface RequestOptions<D = any> extends Omit<RequestConfig, 'errorConfig'> {
   /**
    * 是否跳过异常处理
    * @default false
@@ -64,14 +54,18 @@ export interface RequestOptions<D = any> extends AxiosRequestConfig<D> {
 
 export type GetResponse = boolean | 'data';
 
+
+/** 获取 response */
 export interface RequestOptionsWithResponse<D = any> extends RequestOptions<D> {
   getResponse: true;
 }
 
+/** 获取 response.data */
 export interface RequestOptionsWithoutResponse<D = any> extends RequestOptions<D> {
   getResponse: false;
 }
 
+/** 获取 response.data.data */
 export interface RequestOptionsWithoutDataResponse<D = any> extends RequestOptions<D> {
   getResponse: 'data';
 }

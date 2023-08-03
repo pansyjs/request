@@ -1,3 +1,5 @@
+import type { AxiosRequestConfig } from '@pansy/axios';
+
 export enum ErrorShowType {
   /** 不做处理 */
   SILENT = 0,
@@ -9,4 +11,13 @@ export enum ErrorShowType {
   NOTIFICATION = 3,
   /** 重定向 */
   REDIRECT = 9,
+}
+
+export const defaultConfig: AxiosRequestConfig = {
+  validateDataStatus(data = {}) {
+    return {
+      success: data.code === 0,
+      message: data.message,
+    }
+  },
 }

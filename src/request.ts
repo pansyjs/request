@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from '@pansy/axios';
+import { defaultConfig } from './config';
 
-import type { AxiosInstance } from 'axios';
+import type { AxiosInstance } from '@pansy/axios';
 import type {
   Request,
   RequestConfig,
@@ -14,7 +15,10 @@ let config: RequestConfig = {};
  * @param opts
  */
 export const setConfig = (opts: RequestConfig = {}) => {
-  config = opts;
+  config = {
+    ...defaultConfig,
+    ...opts,
+  };
 }
 
 export const updateConfig = (opts: RequestConfig = {}) => {
@@ -40,34 +44,23 @@ const getRequestInstance = (): AxiosInstance => {
 
   config?.requestInterceptors?.forEach((interceptor) => {
     return interceptor instanceof Array ?
-      requestInstance.interceptors.request.use(interceptor[0], interceptor[1]):
-      requestInstance.interceptors.request.use(interceptor);
-    });
+      requestInstance.interceptors.request.use(interceptor[0] as any, interceptor[1]):
+      requestInstance.interceptors.request.use(interceptor as any);
+  });
 
   config?.responseInterceptors?.forEach((interceptor) => {
     return interceptor instanceof Array ?
       requestInstance.interceptors.response.use(interceptor[0], interceptor[1]):
       requestInstance.interceptors.response.use(interceptor);
-    });
+  });
 
   // 当响应的数据 success 是 false 的时候，抛出 error 以供 errorHandler 处理。
-  requestInstance.interceptors.response.use((response) => {
-    const { responseType = 'json' } = response.config;
-    
-    try {
-      if (
-        responseType === 'json' &&
-        config?.errorConfig?.errorThrower &&
-        config.errorConfig.errorThrower(response)
-      ) {
-        return Promise.reject(response)
-      }
-    } catch (error) {
-      return Promise.reject(error)
+  requestInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      config.errorConfig?.errorHandler?.(error)
     }
-
-    return response;
-  });
+  );
 
   return requestInstance;
 }
@@ -84,17 +77,41 @@ export const request: Request = (
 ) => {
   const requestInstance = getRequestInstance();
 
-  const { getResponse = 'data', ...rest } = opts;
+  const {
+    getResponse = 'data',
+    requestInterceptors,
+    responseInterceptors,
+    ...rest
+  } = opts;
+
+  const requestInterceptorsToEject = requestInterceptors?.forEach((interceptor: any) => {
+    return interceptor instanceof Array ?
+      requestInstance.interceptors.request.use(interceptor[0], interceptor[1]):
+      requestInstance.interceptors.request.use(interceptor);
+  });
+
+  const responseInterceptorsToEject = responseInterceptors?.forEach((interceptor: any) => {
+    return interceptor instanceof Array ?
+      requestInstance.interceptors.response.use(interceptor[0], interceptor[1]):
+      requestInstance.interceptors.response.use(interceptor);
+  });
 
   return new Promise<any>((resolve, reject) => {
     requestInstance
       .request({ ...rest, url })
       .then((res) => {
+        requestInterceptorsToEject?.forEach((interceptor: any) => {
+          requestInstance.interceptors.request.eject(interceptor);
+        });
+        responseInterceptorsToEject?.forEach((interceptor: any) => {
+          requestInstance.interceptors.response.eject(interceptor);
+        });
+
         let data;
 
         switch (getResponse) {
           case 'data':
-            data = res.data?.data;
+            data = res?.data?.data;
             break;
           case false:
             data = res.data;
@@ -103,19 +120,16 @@ export const request: Request = (
             data = res;
             break;
         }
+
         resolve(data);
       })
       .catch((error) => {
-        try {
-          const handler = config.errorConfig?.errorHandler;
-
-          if (handler) {
-            handler(error, rest, config);
-          }
-        } catch (e) {
-          reject(e);
-        }
-
+        requestInterceptorsToEject?.forEach((interceptor: any) => {
+          requestInstance.interceptors.request.eject(interceptor);
+        });
+        responseInterceptorsToEject?.forEach((interceptor: any) => {
+          requestInstance.interceptors.response.eject(interceptor);
+        });
         reject(error);
       });
   });
