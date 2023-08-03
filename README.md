@@ -1,14 +1,25 @@
 <h1 align="center">
-  Pansy Request
+  @pansy/request
 </h1>
 
 <div align="center">
 基于 <a href="https://axios-http.com/zh">Axios</a> 的统一网络请求和错误处理方案。
 </div>
 
+<br />
+
 [![docs by dumi](https://img.shields.io/badge/docs%20by-dumi-blue)](https://d.umijs.org/)
 [![layout](https://img.shields.io/npm/dw/@pansy/request.svg)](https://www.npmjs.com/package/@pansy/request)
 [![layout](https://img.shields.io/npm/v/@pansy/request.svg)](https://www.npmjs.com/package/@pansy/request)
+
+注意：axios 替换为 @pansy/axios，
+
+区别如下，添加 validateDataStatus 配置项，类型定义如下
+
+```ts
+// data 为后端返回的数据
+(data?: any) => { success: boolean; message?: string };
+```
 
 ## 特性
 
