@@ -12,14 +12,8 @@
 [![layout](https://img.shields.io/npm/dw/@pansy/request.svg)](https://www.npmjs.com/package/@pansy/request)
 [![layout](https://img.shields.io/npm/v/@pansy/request.svg)](https://www.npmjs.com/package/@pansy/request)
 
-注意：axios 替换为 @pansy/axios，
 
-区别如下，添加 validateDataStatus 配置项，类型定义如下
-
-```ts
-// data 为后端返回的数据
-(data?: any) => { success: boolean; message?: string };
-```
+## 🌈 前言
 
 后端接口一般情况情况下区别正常成功为以下三种情况
 
@@ -27,13 +21,25 @@
 2. 始终保证请求返回 Http 状态码为 `200`，根据返回数据的中约定的 code 去判断请求是否成功
 3. 两者混用
 
-## 特性
+为了满足第二种情况，对 `axios` 进行了改造，发布了 `@pansy/axios`，主要区别如下：
 
-- 在 Axios 上进行了自己的封装，更加易用
-- 支持根据接口返回数据检验请求是否成功
-- 使用 TypeScript 开发，提供完整的类型定义文件
+添加 `validateDataStatus` 配置项，类型定义如下
 
-## 安装
+```ts
+{
+  // 根据请求返回的数据判定该请求是否成功
+  // data 为后端返回的数据
+  validateDataStatus: (data?: any) => { success: boolean; message?: string };
+}
+```
+
+## ✨ 特性
+
+- 🌈 在 Axios 基础上进行了自己的封装，更加易用
+- 🎨 支持根据接口返回数据判定请求是否成功
+- 🛡 使用 TypeScript 开发，提供完整的类型定义文件
+
+## 📦 安装
 
 ```sh
 # npm install
@@ -46,7 +52,7 @@ yarn add @pansy/request
 pnpm i @pansy/request
 ```
 
-## 使用
+## 🔨 示例
 
 ```ts
 import { request, setConfig } from '@pansy/request';
