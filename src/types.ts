@@ -2,7 +2,7 @@ import type { AxiosResponse, AxiosRequestConfig, AxiosError, InternalAxiosReques
 import type { ErrorShowType } from './config';
 
 /** 接口返回数据格式 */
-export interface ResponseData<D = any> {
+export interface IResponseData<D = any> {
   /** 接口状态码 */
   code: number;
   /** 接口返回数据 */
@@ -30,9 +30,14 @@ export interface RequestError<D> extends Omit<AxiosError<D>, 'message'> {
   };
 }
 
-export type ErrorHandler<D> = (error: RequestError<D>) => void;
+export type ErrorHandler<D> = (
+  error: RequestError<D>,
+  config: RequestOptions<D> & InternalAxiosRequestConfig<D>,
+) => void;
 
 export interface RequestConfig<D = any> extends Partial<AxiosRequestConfig<D>> {
+  /** 检查鉴权信息是否存在 */
+  checkAuth?: () => boolean;
   /** 异常处理相关配置 */
   errorConfig?: {
     /**
@@ -74,9 +79,9 @@ export interface RequestOptionsWithoutDataResponse<D = any> extends RequestOptio
   getResponse: 'data';
 }
 
-export interface Request {
-  <T = any>(url: string, opts: RequestOptionsWithResponse): Promise<AxiosResponse<ResponseData<T>>>;
-  <T = any>(url: string, opts: RequestOptionsWithoutResponse): Promise<ResponseData<T>>;
+export interface IRequest {
+  <T = any>(url: string, opts: RequestOptionsWithResponse): Promise<AxiosResponse<IResponseData<T>>>;
+  <T = any>(url: string, opts: RequestOptionsWithoutResponse): Promise<IResponseData<T>>;
   <T = any>(url: string, opts: RequestOptionsWithoutDataResponse): Promise<T>;
   // getResponse 默认是 'data'， 因此不提供该参数时，只返回 response.data.data
   <T = any>(url: string, opts: RequestOptions): Promise<T>;

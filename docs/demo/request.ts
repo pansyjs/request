@@ -1,6 +1,6 @@
 import { proxy } from 'ajax-hook';
 import { message } from 'antd';
-import { request, setConfig, } from '@pansy/request';
+import { Request } from '@pansy/request';
 
 proxy({
   onRequest: (config, handler) => {
@@ -39,24 +39,24 @@ proxy({
   }
 })
 
-setConfig({
+const { request, cancelAll } = new Request({
   errorConfig: {
-    errorHandler: (error) => {
-      const info = error.message;
+    errorHandler: (error, config) => {
+      const { skipErrorHandler } = config;
 
-      const skipErrorHandler = info.config?.skipErrorHandler;
+      if (skipErrorHandler !== true) {
+        // 错误信息提示
+        const info = error.message;
+        if (info.code === 'ERROR_RESPONSE_DATA') {
+          const errorMessage = info.message;
 
-      if (skipErrorHandler === true) return;
-
-      if (info.code === 'ERROR_RESPONSE_DATA') {
-        const errorMessage = info.message;
-
-        errorMessage && message.error(errorMessage);
-      }
+          errorMessage && message.error(errorMessage);
+        }
+      };
 
       throw error;
     },
   }
 });
 
-export default request;
+export { request, cancelAll };

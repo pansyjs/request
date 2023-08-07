@@ -84,3 +84,7 @@ request(`/api/*`, {
 ### 接口报错
 
 <code src="./demo/demo04.tsx"></code>
+
+### 鉴权信息检查
+
+<code src="./demo/demo05.tsx"></code>

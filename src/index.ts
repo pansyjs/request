@@ -1,11 +1,12 @@
 import axios from '@pansy/axios';
-export { request, setConfig, updateConfig, } from './request';
+export { Request } from './request';
 
 export { axios };
 export { ErrorShowType } from './config';
 
 export type {
-  ResponseData,
+  IRequest,
+  IResponseData,
   RequestConfig,
   RequestOptions,
   RequestError,
