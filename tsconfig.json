@@ -22,6 +22,6 @@
       ]
     }
   },
-  "include": ["src", "docs"],
+  "include": ["src", "docs", "tests"],
   "exclude": ["node_modules", "lib", "es", "dist", ".dumi"]
 }
