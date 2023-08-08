@@ -17,8 +17,7 @@
     "release": "release-it"
   },
   "files": [
-    "es",
-    "lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
