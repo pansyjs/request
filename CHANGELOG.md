@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/pansyjs/request/compare/v3.1.0...v3.1.1) (2023-08-08)
+
+
+### Bug Fixes
+
+* 解决 npm 发布问题 ([a321342](https://github.com/pansyjs/request/commit/a32134243216170d386dec27de3dcbcf4b6bee25))
+
 # [3.1.0](https://github.com/pansyjs/request/compare/v2.3.1...v3.1.0) (2023-08-08)
 
 
