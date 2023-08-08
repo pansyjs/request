@@ -73,7 +73,7 @@
       "draft": true
     },
     "npm": {
-      "publish": false,
+      "publish": true,
       "ignoreVersion": false
     },
     "plugins": {
