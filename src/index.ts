@@ -1,4 +1,4 @@
-import axios from '@pansy/axios';
+import axios from 'axios';
 export { Request } from './request';
 
 export { axios };
@@ -7,8 +7,8 @@ export { ErrorShowType } from './config';
 export type {
   IRequest,
   IResponseData,
-  RequestConfig,
-  RequestOptions,
+  IRequestConfig,
+  IRequestOptions,
   RequestError,
   ErrorHandler,
   ResponseInterceptor,
@@ -18,4 +18,4 @@ export type {
   AxiosInstance,
   AxiosResponse,
   AxiosRequestConfig,
-} from '@pansy/axios';
+} from 'axios';

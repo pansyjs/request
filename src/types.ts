@@ -1,8 +1,10 @@
-import type { AxiosResponse, AxiosRequestConfig, AxiosError, InternalAxiosRequestConfig } from '@pansy/axios';
+import type { AxiosResponse, AxiosRequestConfig, AxiosError, InternalAxiosRequestConfig } from 'axios';
 import type { ErrorShowType } from './config';
 
 /** 接口返回数据格式 */
 export interface IResponseData<D = any> {
+  /** 标记请求是否成功 */
+  success: boolean;
   /** 接口状态码 */
   code: number;
   /** 接口返回数据 */
@@ -14,7 +16,7 @@ export interface IResponseData<D = any> {
   [key: string]: any;
 }
 
-type RequestInterceptor = (config: RequestOptions) => RequestOptions;
+type RequestInterceptor = (config: IRequestOptions) => IRequestOptions;
 type ResponseInterceptor = <T = any>(response : AxiosResponse<T>) => AxiosResponse<T> ;
 type ErrorInterceptor = (error: Error) => Promise<Error>;
 type RequestInterceptorTuple = [RequestInterceptor, ErrorInterceptor] | [ RequestInterceptor ] | RequestInterceptor;
@@ -23,7 +25,7 @@ type ResponseInterceptorTuple = [ResponseInterceptor, ErrorInterceptor] | [Respo
 export interface RequestError<D> extends Omit<AxiosError<D>, 'message'> {
   message: {
     code?: string;
-    config?: RequestOptions<D> & InternalAxiosRequestConfig<D>;
+    config?: IRequestOptions<D> & InternalAxiosRequestConfig<D>;
     message: string;
     request: any;
     response: AxiosResponse<D>;
@@ -32,14 +34,16 @@ export interface RequestError<D> extends Omit<AxiosError<D>, 'message'> {
 
 export type ErrorHandler<D> = (
   error: RequestError<D>,
-  config: RequestOptions<D> & InternalAxiosRequestConfig<D>,
+  config: IRequestOptions<D> & InternalAxiosRequestConfig<D>,
 ) => void;
 
-export interface RequestConfig<D = any> extends Partial<AxiosRequestConfig<D>> {
+export interface IRequestConfig<D = any> extends Partial<AxiosRequestConfig<D>> {
   /** 检查鉴权信息是否存在 */
   checkAuth?: () => boolean;
+  formatData?: (data: any) => IResponseData<D>;
   /** 异常处理相关配置 */
   errorConfig?: {
+    errorThrower?:(data: AxiosResponse<IResponseData<D>>) => void;
     /**
      * 错误接收及处理
      */
@@ -52,7 +56,11 @@ export interface RequestConfig<D = any> extends Partial<AxiosRequestConfig<D>> {
 }
 
 /** 请求配置参数 */
-export interface RequestOptions<D = any> extends Omit<RequestConfig, 'errorConfig'> {
+export interface IRequestOptions<D = any> extends Omit<IRequestConfig<D>, 'errorConfig'> {
+  /**
+   * 异常提示类型
+   */
+  errorShowType?: ErrorShowType;
   /**
    * 是否跳过异常处理
    * @default false
@@ -65,17 +73,17 @@ export type GetResponse = boolean | 'data';
 
 
 /** 获取 response */
-export interface RequestOptionsWithResponse<D = any> extends RequestOptions<D> {
+export interface RequestOptionsWithResponse<D = any> extends IRequestOptions<D> {
   getResponse: true;
 }
 
 /** 获取 response.data */
-export interface RequestOptionsWithoutResponse<D = any> extends RequestOptions<D> {
+export interface RequestOptionsWithoutResponse<D = any> extends IRequestOptions<D> {
   getResponse: false;
 }
 
 /** 获取 response.data.data */
-export interface RequestOptionsWithoutDataResponse<D = any> extends RequestOptions<D> {
+export interface RequestOptionsWithoutDataResponse<D = any> extends IRequestOptions<D> {
   getResponse: 'data';
 }
 
@@ -84,7 +92,7 @@ export interface IRequest {
   <T = any>(url: string, opts: RequestOptionsWithoutResponse): Promise<IResponseData<T>>;
   <T = any>(url: string, opts: RequestOptionsWithoutDataResponse): Promise<T>;
   // getResponse 默认是 'data'， 因此不提供该参数时，只返回 response.data.data
-  <T = any>(url: string, opts: RequestOptions): Promise<T>;
+  <T = any>(url: string, opts: IRequestOptions): Promise<T>;
   // 不提供 opts 时，默认使用 'GET' method，并且默认返回 data
   <T = any>(url: string): Promise<T>;
 }

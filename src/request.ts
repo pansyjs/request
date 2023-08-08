@@ -1,15 +1,15 @@
-import axios from '@pansy/axios';
+import axios from 'axios';
 import { defaultConfig } from './config';
 
-import type { AxiosInstance, InternalAxiosRequestConfig } from '@pansy/axios';
-import type { IRequest, RequestConfig, } from './types';
+import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import type { IRequest, IRequestConfig, } from './types';
 
 export class Request {
-  config: RequestConfig;
+  config: IRequestConfig;
   instance: AxiosInstance;
   abortMap: Map<string, AbortController>;
 
-  constructor(config: RequestConfig) {
+  constructor(config: IRequestConfig) {
     this.config = this.mergeConfig(defaultConfig, config)
     this.instance = this.getInstance(this.config);
     this.abortMap = new Map();
@@ -20,15 +20,16 @@ export class Request {
    * @param config
    * @returns
    */
-  getInstance = (config: RequestConfig = {}): AxiosInstance => {
+  getInstance = (config: IRequestConfig = {}): AxiosInstance => {
     const instance = axios.create(config);
 
+    // 请求拦截器
     instance.interceptors.request.use(
       (res) => {
         const controller = new AbortController();
         res.signal = controller.signal;
 
-        const { checkAuth } = res as RequestConfig;
+        const { checkAuth } = res as IRequestConfig;
         const { __skipCheckAuth } = res.params || {};
         if (checkAuth && __skipCheckAuth !== true && checkAuth() === false) {
           console.error('Authentication information check failed')
@@ -48,20 +49,23 @@ export class Request {
         const resId = this.getRequestId(response.config);
         this.abortMap.delete(resId);
 
+        const { responseType = 'json' } = response.config;
+
         try {
           const { config } = response;
 
-          const formatData = (config as any)['formatData'];
+          const formatData = (config as IRequestConfig)['formatData'];
 
-          if (formatData) {
-            return {
-              ...response,
-              data: formatData(response.data),
-            };
+          if (formatData && responseType === 'json') {
+            response.data = formatData(response.data);
           }
 
-        } catch (error) {
-          return response;
+        } catch (error) {}
+
+        const { data } = response;
+
+        if(data?.success === false && config?.errorConfig?.errorThrower){
+          config.errorConfig.errorThrower(response);
         }
 
         return response;
@@ -87,7 +91,7 @@ export class Request {
   }
 
   /** 更新配置 */
-  updateConfig = (config: RequestConfig) => {
+  updateConfig = (config: IRequestConfig) => {
     this.config = {
       ...this.config,
       ...config,
@@ -178,7 +182,7 @@ export class Request {
     });
   }
 
-  mergeConfig(config: RequestConfig, config1: RequestConfig) {
+  mergeConfig(config: IRequestConfig, config1: IRequestConfig) {
     return (axios as any)['mergeConfig'](config, config1);
   }
 }
