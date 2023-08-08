@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/pansyjs/request#readme",
   "dependencies": {
-    "@pansy/axios": "0.2.0"
+    "axios": "1.4.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.7",
