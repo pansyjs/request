@@ -22,18 +22,8 @@ type ErrorInterceptor = (error: Error) => Promise<Error>;
 type RequestInterceptorTuple = [RequestInterceptor, ErrorInterceptor] | [ RequestInterceptor ] | RequestInterceptor;
 type ResponseInterceptorTuple = [ResponseInterceptor, ErrorInterceptor] | [ResponseInterceptor] | ResponseInterceptor;
 
-export interface RequestError<D> extends Omit<AxiosError<D>, 'message'> {
-  message: {
-    code?: string;
-    config?: IRequestOptions<D> & InternalAxiosRequestConfig<D>;
-    message: string;
-    request: any;
-    response: AxiosResponse<D>;
-  };
-}
-
 export type ErrorHandler<D> = (
-  error: RequestError<D>,
+  error: AxiosError<D>,
   config: IRequestOptions<D> & InternalAxiosRequestConfig<D>,
 ) => void;
 

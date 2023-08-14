@@ -71,7 +71,13 @@ export class Request {
         return response;
       },
       (error) => {
-        config.errorConfig?.errorHandler?.(error, error.message.response);
+        const config = error.config || {};
+        if (config.skipErrorHandler === true) {
+          throw error;
+        } else {
+          config.errorConfig?.errorHandler?.(error, config);
+          throw error
+        };
       }
     );
 
@@ -92,10 +98,7 @@ export class Request {
 
   /** 更新配置 */
   updateConfig = (config: IRequestConfig) => {
-    this.config = {
-      ...this.config,
-      ...config,
-    }
+    this.config = this.mergeConfig(this.config, config);
 
     this.instance = this.getInstance(config);
   }
