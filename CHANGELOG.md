@@ -1,5 +1,17 @@
 # Changelog
 
+# [3.2.0](https://github.com/pansyjs/request/compare/v3.1.1...v3.2.0) (2023-08-14)
+
+
+### Bug Fixes
+
+* remove RequestError ([7355d72](https://github.com/pansyjs/request/commit/7355d72d418df05a03a531bc1db3a6f0408768bd))
+
+
+### Features
+
+* 优化 errorHandler 配置 ([5638f6e](https://github.com/pansyjs/request/commit/5638f6e18a23b689735b469f327b279e56d55506))
+
 ## [3.1.1](https://github.com/pansyjs/request/compare/v3.1.0...v3.1.1) (2023-08-08)
 
 
