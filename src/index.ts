@@ -9,7 +9,6 @@ export type {
   IResponseData,
   IRequestConfig,
   IRequestOptions,
-  RequestError,
   ErrorHandler,
   ResponseInterceptor,
 } from './types';
