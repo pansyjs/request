@@ -1,5 +1,12 @@
 # Changelog
 
+# [3.3.0](https://github.com/pansyjs/request/compare/v3.2.0...v3.3.0) (2023-08-14)
+
+
+### Features
+
+* 优化 errorHandler ([563ec5a](https://github.com/pansyjs/request/commit/563ec5aa2d56d24b230cb30a21e90da93b124c37))
+
 # [3.2.0](https://github.com/pansyjs/request/compare/v3.1.1...v3.2.0) (2023-08-14)
 
 
