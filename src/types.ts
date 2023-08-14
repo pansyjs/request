@@ -24,7 +24,7 @@ type ResponseInterceptorTuple = [ResponseInterceptor, ErrorInterceptor] | [Respo
 
 export type ErrorHandler<D> = (
   error: AxiosError<D>,
-  config: IRequestOptions<D> & InternalAxiosRequestConfig<D>,
+  data: D,
 ) => void;
 
 export interface IRequestConfig<D = any> extends Partial<AxiosRequestConfig<D>> {

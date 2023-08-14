@@ -75,7 +75,7 @@ export class Request {
         if (config.skipErrorHandler === true) {
           throw error;
         } else {
-          config.errorConfig?.errorHandler?.(error, config);
+          config.errorConfig?.errorHandler?.(error, error.response?.data || {});
           throw error
         };
       }
