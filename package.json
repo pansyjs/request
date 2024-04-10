@@ -1,6 +1,6 @@
 {
   "name": "@pansy/request",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "基于 Axios 的统一网络请求和错误处理方案",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",

@@ -1,5 +1,13 @@
 # Changelog
 
+# [4.1.0](https://github.com/pansyjs/request/compare/v3.3.0...v4.1.0) (2024-04-10)
+
+
+### Features
+
+* 代码重构 ([fac4a84](https://github.com/pansyjs/request/commit/fac4a848e8484ad2a16f5e5faa5af0f2e8a6346b))
+* export all type ([4f25cdc](https://github.com/pansyjs/request/commit/4f25cdc098ffb693670b568089d5d312c27b2cd7))
+
 # [3.3.0](https://github.com/pansyjs/request/compare/v3.2.0...v3.3.0) (2023-08-14)
 
 
