@@ -9,19 +9,8 @@
 
 # production
 /dist
-/lib
-/es
 
 /report
 
 # misc
 .DS_Store
-
-# umi
-.dumi/tmp
-.dumi/tmp-test
-.dumi/tmp-production
-/src/.umi
-/src/.umi-production
-/src/.umi-test
-/.env.local

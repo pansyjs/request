@@ -1,27 +1,34 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "es2020",
+    "jsx": "react",
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "webworker"],
+    "baseUrl": ".",
+    "rootDir": ".",
+    "module": "esnext",
     "moduleResolution": "node",
-    "module": "commonjs",
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "declaration": true,
-    "esModuleInterop": true,
-    "downlevelIteration": true,
-    "sourceMap": true,
-    "baseUrl": "./",
-    "lib": ["ES2015", "DOM"],
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noImplicitAny": true,
+    "paths": {},
     "resolveJsonModule": true,
-    "paths": {
-      "@pansy/request": [
-        "src"
-      ]
-    }
+    "types": [
+      "vitest"
+    ],
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "declaration": true,
+    "declarationDir": "./types",
+    "esModuleInterop": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
   },
-  "include": ["src", "docs", "tests"],
-  "exclude": ["node_modules", "lib", "es", "dist", ".dumi"]
+  "include": [
+    "*.ts",
+    "vitest.config.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.md",
+    "**/dist"
+  ]
 }
