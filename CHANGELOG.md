@@ -1,5 +1,12 @@
 # Changelog
 
+# [4.2.0](https://github.com/pansyjs/request/compare/v4.1.0...v4.2.0) (2024-04-10)
+
+
+### Features
+
+* 优化导出 ([dc56dbc](https://github.com/pansyjs/request/commit/dc56dbc4e3cb613618ff3b190ccd5df35c75a89d))
+
 # [4.1.0](https://github.com/pansyjs/request/compare/v3.3.0...v4.1.0) (2024-04-10)
 
 
