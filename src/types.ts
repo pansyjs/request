@@ -97,3 +97,5 @@ export interface Request {
     },
   ) => Promise<ResponseResult<Payload>>
 }
+
+export type { AxiosInstance } from 'axios'
