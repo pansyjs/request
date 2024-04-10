@@ -2,8 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { initializeInstance } from '@pansy/request'
 import App from './App.tsx'
+import './server'
 
 initializeInstance({
+  baseURL: '/api',
   timeout: 60 * 1000
 })
 

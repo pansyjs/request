@@ -41,8 +41,7 @@
     "@commitlint/config-conventional": "^19.1.0",
     "@release-it/conventional-changelog": "^7.0.0",
     "@testing-library/jest-dom": "^6.4.2",
-    "ajax-hook": "^3.0.1",
-    "eslint": "^9.0.0",
+    "eslint": "^8.57.0",
     "husky": "^9.0.11",
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
@@ -85,7 +84,7 @@
     "access": "public"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "*.ts": [
       "eslint --cache --fix"
     ]
   }
