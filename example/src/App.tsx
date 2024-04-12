@@ -1,18 +1,35 @@
-import { useEffect } from 'react'
-import { Button } from '@arco-design/web-react'
+import { Button, Divider } from '@arco-design/web-react'
 import apis from '@/apis'
 
 function App() {
-  useEffect(() => {
+  const handleNormal = () => {
     apis.user.fetchList()
-      .then((res: any) => {
+      .then((res) => {
         console.log(res)
       })
-  }, [])
+  }
+
+  const handleDataCodeError = () => {
+    apis.user.dataError()
+      .then((res) => {
+        console.log(res)
+      })
+  }
+
+  const handleHttpCodeError = () => {
+    apis.user.httpError()
+      .then((res) => {
+        console.log(res)
+      })
+  }
 
   return (
     <div style={{ padding: 16 }}>
-      <Button>点击</Button>
+      <Button onClick={handleNormal}>正常请求</Button>
+      <Divider />
+      <Button onClick={handleDataCodeError}>数据状态码异常请求</Button>
+      <Divider />
+      <Button onClick={handleHttpCodeError}>Http状态码异常请求</Button>
     </div>
   )
 }

@@ -2,12 +2,16 @@ import axios from 'axios'
 import { assign } from 'radash'
 import type { AxiosInstance } from 'axios'
 import urlArgsInterceptor from './interceptor/urlArgs'
+import errorMessageInterceptor from './interceptor/error'
 
 import type { Request, RequestConfig } from './types'
 import type { Interceptor } from './interceptor/types'
 
 let initializeConfig: RequestConfig = {}
-const defaultInterceptors = [urlArgsInterceptor]
+const defaultInterceptors = [
+  urlArgsInterceptor,
+  errorMessageInterceptor,
+]
 
 interface CreateAxiosOptions {
   /** 是否使用默认拦截器 */

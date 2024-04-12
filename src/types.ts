@@ -1,6 +1,7 @@
 import type {
   AxiosError,
   AxiosRequestConfig as AxiosRequestConfigType,
+  AxiosRequestHeaders,
   AxiosResponse as AxiosResponseType,
 } from 'axios'
 
@@ -9,7 +10,11 @@ export enum ErrorShowType {
   SILENT = 0,
 }
 
-export interface AxiosResponse<Payload = any, D = any> extends AxiosResponseType<ResponseData<Payload>, D> {}
+export interface AxiosResponse<Payload = any, D = any> extends Omit<AxiosResponseType<ResponseData<Payload>, D>, 'config'> {
+  config: RequestConfig<Payload, D> & {
+    headers: AxiosRequestHeaders
+  }
+}
 
 /** 接口返回数据格式 */
 export interface ResponseData<Payload = any> {
@@ -61,18 +66,11 @@ export interface RequestConfig<
 > extends Partial<AxiosRequestConfig<Data, Params, Args>> {
   /** 异常处理相关配置 */
   errorConfig?: {
-    /**  */
-    errorThrower?: (data: AxiosResponse<ResponseData<Payload>>) => void
     /**
      * 错误接收及处理
      */
-    errorHandler?: ErrorHandler<Data>
+    errorHandler?: (data: ResponseData<Payload>, error?: AxiosError<ResponseData<Payload>>) => void
   }
-  /**
-   * 是否跳过异常处理
-   * @default false
-   */
-  skipErrorHandler?: boolean
 }
 
 export interface Request {
