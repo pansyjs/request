@@ -1,5 +1,12 @@
 # Changelog
 
+# [4.3.0](https://github.com/pansyjs/request/compare/v4.2.0...v4.3.0) (2024-04-12)
+
+
+### Features
+
+* 异常消息拦截器支持 ([e012e1f](https://github.com/pansyjs/request/commit/e012e1ff7ff70160c351b6a8dca0806f59e9f79d))
+
 # [4.2.0](https://github.com/pansyjs/request/compare/v4.1.0...v4.2.0) (2024-04-10)
 
 
